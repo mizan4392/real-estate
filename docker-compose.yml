@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+  helloChatDb:
+    image: mongo:4.2.3-bionic
+    container_name: realestate-mongodb
+    ports:
+      - 27022:27017
+    environment:
+      - MONGO_INITDB_DATABASE=realestate
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+    volumes:
+      - ./db-data/mongo-data/:/var/lib/mongo/data/
+
+  redis:
+    image: redis
+    container_name: realestate_redis
+    hostname: redis
+    expose:
+      - 6383
+    ports:
+      - "6383:6379"
+
+networks:
+  socailbook_net:
+    external:
+      name: realestate_net

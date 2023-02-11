@@ -1,0 +1,78 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  """id"""
+  id: String!
+
+  """fullName"""
+  fullName: String!
+
+  """email"""
+  email: String!
+
+  """password"""
+  password: String!
+
+  """profilePic"""
+  profilePic: String!
+
+  """isAdmin"""
+  isAdmin: Boolean!
+
+  """address"""
+  address: Boolean!
+
+  """createdAt"""
+  createdAt: Boolean!
+}
+
+"""Authenticate response"""
+type LoginResponse {
+  """The jwt token that contains the authenticated user."""
+  jwt: String!
+}
+
+type Query {
+  user(id: Int!): User!
+}
+
+type Mutation {
+  login(loginRequest: LoginRequest!): LoginResponse!
+  registration(registrationRequest: RegistrationDto!): Boolean!
+  confirmRegister(pin: Float!): Boolean!
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: Int!): User!
+}
+
+input LoginRequest {
+  """Email of the user"""
+  email: String!
+
+  """Password of the user"""
+  password: String!
+}
+
+input RegistrationDto {
+  """Email of the user"""
+  email: String!
+
+  """Password of the user"""
+  password: String!
+
+  """FullName  of the user"""
+  fullName: String!
+}
+
+input CreateUserInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateUserInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}

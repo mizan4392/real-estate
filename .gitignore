@@ -26,3 +26,4 @@ client/node_modules
 server/node_modules
 server/dist
 *.env
+db-data

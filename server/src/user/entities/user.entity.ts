@@ -8,57 +8,46 @@ import { ExcludeProperty } from 'nestjs-mongoose-exclude';
 export class User {
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
+    auto: true,
   })
-  @Field(() => String, { description: 'id' })
-  id: string;
+  @Field(() => String, { description: 'id', nullable: true })
+  _id: string;
 
-  @ApiProperty({
-    required: true,
-    description: 'Full Name',
-  })
   @Field(() => String, { description: 'fullName' })
   @Prop({ type: mongoose.Schema.Types.String, required: false })
   fullName: string;
 
-  @ApiProperty({
-    required: true,
-    description: 'Email',
-  })
   @Field(() => String, { description: 'email' })
   @Prop({ type: mongoose.Schema.Types.String, required: true })
   email: string;
 
   @Prop({ type: mongoose.Schema.Types.String, required: true })
   @ExcludeProperty()
-  @Field(() => String, { description: 'password' })
+  @Field(() => String, { description: 'password', nullable: true })
   password: string;
 
-  @ApiProperty({
-    required: false,
-    description: 'Profile Pic',
-  })
-  @Field(() => String, { description: 'profilePic' })
+  @Field(() => String, { description: 'profilePic', nullable: true })
   @Prop({ type: mongoose.Schema.Types.String, required: false })
   profilePic?: string;
 
-  @Prop({ type: mongoose.Schema.Types.Boolean, required: false })
-  @Field(() => Boolean, { description: 'isAdmin' })
+  @Prop({
+    type: mongoose.Schema.Types.Boolean,
+    required: false,
+    nullable: true,
+  })
+  @Field(() => Boolean, { description: 'isAdmin', nullable: true })
   @ExcludeProperty()
   isAdmin?: boolean;
 
-  @ApiProperty({
-    required: false,
-    description: 'address',
-  })
-  @Field(() => Boolean, { description: 'address' })
-  @Prop({ type: mongoose.Schema.Types.String, required: false })
+  @Field(() => String, { description: 'address', nullable: true })
+  @Prop({ type: mongoose.Schema.Types.String, required: false, nullable: true })
   address?: string;
 
   @ApiProperty({
     required: false,
     description: 'createdAt',
   })
-  @Field(() => Boolean, { description: 'createdAt' })
+  @Field(() => Boolean, { description: 'createdAt', nullable: true })
   @Prop({ type: mongoose.Schema.Types.Date, required: false })
   createdAt?: Date;
 }

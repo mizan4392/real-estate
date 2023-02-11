@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { User } from './entities/user.entity';
@@ -10,6 +10,10 @@ export class UserService {
 
   findUserByEmail(email: string) {
     return this.userRepository.finOne({ email: email });
+  }
+
+  findUserById(id: string) {
+    return this.userRepository.finOne({ _id: id });
   }
 
   createUser(userInfo: Partial<User>) {
@@ -29,8 +33,19 @@ export class UserService {
     return `This action returns a #${id} user`;
   }
 
-  update(id: number, updateUserInput: UpdateUserInput) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserInput: UpdateUserInput) {
+    console.log('updateUserInput', updateUserInput);
+    try {
+      await this.userRepository.findOneAndUpdate(
+        {
+          id: id,
+        },
+        updateUserInput,
+      );
+      return true;
+    } catch (e) {
+      throw new InternalServerErrorException(e);
+    }
   }
 
   remove(id: number) {

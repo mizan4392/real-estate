@@ -4,7 +4,7 @@
 
 type User {
   """id"""
-  id: String!
+  _id: String
 
   """fullName"""
   fullName: String!
@@ -13,19 +13,19 @@ type User {
   email: String!
 
   """password"""
-  password: String!
+  password: String
 
   """profilePic"""
-  profilePic: String!
+  profilePic: String
 
   """isAdmin"""
-  isAdmin: Boolean!
+  isAdmin: Boolean
 
   """address"""
-  address: Boolean!
+  address: String
 
   """createdAt"""
-  createdAt: Boolean!
+  createdAt: Boolean
 }
 
 """Authenticate response"""
@@ -35,16 +35,14 @@ type LoginResponse {
 }
 
 type Query {
-  user(id: Int!): User!
+  getUserDetails: User!
 }
 
 type Mutation {
   login(loginRequest: LoginRequest!): LoginResponse!
   registration(registrationRequest: RegistrationDto!): Boolean!
   confirmRegister(pin: Float!): Boolean!
-  createUser(createUserInput: CreateUserInput!): User!
-  updateUser(updateUserInput: UpdateUserInput!): User!
-  removeUser(id: Int!): User!
+  updateUser(updateUserInput: UpdateUserInput!): Boolean!
 }
 
 input LoginRequest {
@@ -66,13 +64,13 @@ input RegistrationDto {
   fullName: String!
 }
 
-input CreateUserInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
 input UpdateUserInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  """address"""
+  address: String
+
+  """email"""
+  email: String
+
+  """fullName"""
+  fullName: String
 }

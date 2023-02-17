@@ -6,6 +6,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { GlobalModule } from './global.module';
+import { ApartmentModule } from './apartment/apartment.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { GlobalModule } from './global.module';
     GlobalModule,
     AuthModule,
     UserModule,
+    ApartmentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

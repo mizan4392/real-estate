@@ -1,4 +1,5 @@
 import { Document, FilterQuery, Model, UpdateQuery } from 'mongoose';
+import { Pagination } from './common';
 
 export abstract class MongoRepository<T extends Document> {
   constructor(protected readonly entityModel: Model<T>) {}
@@ -17,6 +18,19 @@ export abstract class MongoRepository<T extends Document> {
 
   async find(userFactoryQuery: FilterQuery<T>): Promise<T[] | null> {
     return this.entityModel.find(userFactoryQuery);
+  }
+  async count(userFactoryQuery: FilterQuery<T>): Promise<number | null> {
+    return this.entityModel.find(userFactoryQuery).count();
+  }
+  async findByPagination(
+    userFactoryQuery: FilterQuery<T>,
+    pagination: Pagination,
+  ): Promise<T[] | null> {
+    return this.entityModel
+      .find(userFactoryQuery)
+      .skip((pagination.page - 1) * pagination.limit)
+      .limit(pagination.limit)
+      .exec();
   }
 
   async create(createEntityData: unknown): Promise<T> {

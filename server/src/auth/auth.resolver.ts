@@ -6,7 +6,7 @@ import {
 import { Mutation, Args, Resolver } from '@nestjs/graphql';
 import { EmailService } from 'src/email.service';
 
-import { User } from 'src/user/entities/user.entity';
+import { User } from 'src/user/entities/user.schema';
 import { UserService } from 'src/user/user.service';
 
 import { AuthService } from './auth.service';

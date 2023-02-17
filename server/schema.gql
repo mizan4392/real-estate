@@ -34,8 +34,81 @@ type LoginResponse {
   jwt: String!
 }
 
+type Apartment {
+  """id"""
+  _id: String
+
+  """houseName"""
+  houseName: String!
+
+  """address"""
+  address: String!
+
+  """country"""
+  country: String!
+
+  """city"""
+  city: String!
+
+  """bio"""
+  bio: String!
+
+  """totalBed"""
+  bedrooms: String!
+
+  """totalBath"""
+  bathrooms: String!
+
+  """totalBath"""
+  surface: String!
+
+  """totalBath"""
+  price: String!
+
+  """totalBath"""
+  type: String!
+}
+
+"""Find Apartment Response"""
+type FindApartmentResponse {
+  """Number of Apartments"""
+  total: Int!
+
+  """Apartments"""
+  apartments: [Apartment!]!
+}
+
 type Query {
   getUserDetails: User!
+  getApartments(
+    """Pagination"""
+    pagination: Pagination!
+
+    """country"""
+    country: String
+
+    """country"""
+    type: APARTMENT_TYPE
+
+    """price range"""
+    price: String
+  ): FindApartmentResponse!
+  apartmentDetails(
+    """apartmentId"""
+    apartmentId: String!
+  ): Apartment!
+}
+
+"""Pagination"""
+input Pagination {
+  page: Float!
+  limit: Float!
+}
+
+"""The available type of appartment"""
+enum APARTMENT_TYPE {
+  APARTMENT
+  HOUSE
 }
 
 type Mutation {

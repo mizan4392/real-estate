@@ -34,7 +34,7 @@ import { EmailService } from './email.service';
       },
     }),
     MongooseModule.forRoot(environment.mongoUrl, {
-      dbName: 'realestate',
+      dbName: 'realstate',
     }),
   ],
   providers: [AppService, EmailService],

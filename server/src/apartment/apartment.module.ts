@@ -15,5 +15,6 @@ import { ApartmentRepository } from './apartment.repository';
     ]),
   ],
   providers: [ApartmentResolver, ApartmentService, ApartmentRepository],
+  exports: [ApartmentService],
 })
 export class ApartmentModule {}

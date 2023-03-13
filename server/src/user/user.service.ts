@@ -12,8 +12,9 @@ export class UserService {
     return this.userRepository.finOne({ email: email });
   }
 
-  findUserById(id: string) {
-    return this.userRepository.finOne({ _id: id });
+  async findUserById(id: string) {
+    const user = await this.userRepository.finOne({ _id: id });
+    return user;
   }
 
   createUser(userInfo: Partial<User>) {

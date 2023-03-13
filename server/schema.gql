@@ -78,6 +78,25 @@ type FindApartmentResponse {
   apartments: [Apartment!]!
 }
 
+type Order {
+  """id"""
+  _id: String
+
+  """apartmentId"""
+  apartmentId: String!
+
+  """orderStatus"""
+  orderStatus: String!
+
+  """description"""
+  description: String!
+
+  """userId"""
+  userId: String!
+  apartment: Apartment!
+  user: User!
+}
+
 type Query {
   getUserDetails: User!
   getApartments(
@@ -97,6 +116,7 @@ type Query {
     """apartmentId"""
     apartmentId: String!
   ): Apartment!
+  userOrders: [Order!]!
 }
 
 """Pagination"""
@@ -116,6 +136,7 @@ type Mutation {
   registration(registrationRequest: RegistrationDto!): Boolean!
   confirmRegister(pin: Float!): Boolean!
   updateUser(updateUserInput: UpdateUserInput!): Boolean!
+  createOrder(createOrderInput: CreateOrderInput!): Order!
 }
 
 input LoginRequest {
@@ -146,4 +167,12 @@ input UpdateUserInput {
 
   """fullName"""
   fullName: String
+}
+
+input CreateOrderInput {
+  """description"""
+  description: String
+
+  """apartmentId"""
+  apartmentId: String!
 }

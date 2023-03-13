@@ -1,4 +1,13 @@
-import { Document, FilterQuery, Model, UpdateQuery } from 'mongoose';
+import {
+  Aggregate,
+  AggregateOptions,
+  Callback,
+  Document,
+  FilterQuery,
+  Model,
+  PipelineStage,
+  UpdateQuery,
+} from 'mongoose';
 import { Pagination } from './common';
 
 export abstract class MongoRepository<T extends Document> {
@@ -54,5 +63,13 @@ export abstract class MongoRepository<T extends Document> {
   async deleteMany(userFactoryQuery: FilterQuery<T>) {
     const deleteResult = await this.entityModel.deleteMany(userFactoryQuery);
     return deleteResult.deletedCount >= 1;
+  }
+
+  aggregate(
+    pipeline?: PipelineStage[],
+    options?: AggregateOptions,
+    callback?: Callback<T[]>,
+  ): Aggregate<Array<T>> {
+    return this.entityModel.aggregate(pipeline, options, callback);
   }
 }

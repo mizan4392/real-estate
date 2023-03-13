@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { GlobalModule } from './global.module';
 import { ApartmentModule } from './apartment/apartment.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ApartmentModule } from './apartment/apartment.module';
     AuthModule,
     UserModule,
     ApartmentModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [AppService],

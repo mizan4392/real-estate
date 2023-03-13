@@ -16,6 +16,15 @@ export enum APARTMENT_TYPE {
   HOUSE = 'House',
 }
 
+export enum ORDER_STATUS {
+  PENDING = 'pending',
+  ACCEPTED = 'accepted',
+  REJECTED = 'rejected',
+}
+registerEnumType(APARTMENT_TYPE, {
+  name: 'ORDER_STATUS',
+  description: 'Order status',
+});
 registerEnumType(APARTMENT_TYPE, {
   name: 'APARTMENT_TYPE',
   description: 'The available type of appartment',

@@ -78,10 +78,13 @@ export class AuthResolver {
   }
 
   @Mutation(() => Boolean)
-  async confirmRegister(@Args('pin') pin: number) {
+  async confirmRegister(
+    // @Args('pin') pin: number
+    @Args('pin', { type: () => String }) pin: string,
+  ) {
     const data = await this.otpService.getOtpData({
       key: 'registration',
-      code: pin,
+      code: Number(pin),
     });
 
     if (data) {
@@ -103,6 +106,8 @@ export class AuthResolver {
       } else {
         throw new BadRequestException('somthing went wrong');
       }
+    } else {
+      return false;
     }
   }
 }

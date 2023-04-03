@@ -13,7 +13,6 @@ export default function ConfirmSignup({}: Props) {
   const [confirm, { loading, data }] = useMutation(CONFIRM_USER_MUTATION);
   useEffect(() => {
     if (data) {
-      console.log("data", data);
       if (!data?.confirmRegister) {
         toast.error("Pin Expired");
         navigate("/signup");

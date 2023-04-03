@@ -18,7 +18,6 @@ export class UserService {
   }
 
   createUser(userInfo: Partial<User>) {
-    // return this.userRepo.save(userInfo);
     return this.userRepository.create(userInfo);
   }
 

@@ -3,8 +3,9 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import mongoose, { Document } from 'mongoose';
 import { ExcludeProperty } from 'nestjs-mongoose-exclude';
-@Schema()
+
 @ObjectType()
+@Schema()
 export class User {
   @Prop({
     type: mongoose.Schema.Types.ObjectId,

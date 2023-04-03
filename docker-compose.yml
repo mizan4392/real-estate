@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-  helloChatDb:
+  reatStatDb:
     image: mongo:4.2.3-bionic
     container_name: realestate-mongodb
     ports:
@@ -23,6 +23,6 @@ services:
       - "6383:6379"
 
 networks:
-  socailbook_net:
+  realestate_net:
     external:
       name: realestate_net

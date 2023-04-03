@@ -4,13 +4,16 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import HouseContextProvider from "./components/HouseContext.component";
 import "./index.css";
+import { AppStorContextProvider } from "./context/app-store.context";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
-    <HouseContextProvider>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </HouseContextProvider>
+    <AppStorContextProvider>
+      <HouseContextProvider>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </HouseContextProvider>
+    </AppStorContextProvider>
   </BrowserRouter>
 );

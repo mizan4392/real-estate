@@ -7,7 +7,7 @@ import Button from "../components/Button.component";
 
 export const Login = () => {
   const [loginData, setLoginData] = useState<any>({});
-  const [login, { loading, data }] = useMutation(LOGIN_USER_MUTATION);
+  const [login, { loading, data, error }] = useMutation(LOGIN_USER_MUTATION);
   const navigate = useNavigate();
   useEffect(() => {
     if (data) {
@@ -18,6 +18,12 @@ export const Login = () => {
       }
     }
   }, [data]);
+
+  useEffect(() => {
+    if (error?.message) {
+      toast.error(error?.message);
+    }
+  }, [error]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginData({

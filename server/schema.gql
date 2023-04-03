@@ -134,7 +134,7 @@ enum APARTMENT_TYPE {
 type Mutation {
   login(loginRequest: LoginRequest!): LoginResponse!
   registration(registrationRequest: RegistrationDto!): Boolean!
-  confirmRegister(pin: Float!): Boolean!
+  confirmRegister(pin: String!): Boolean!
   updateUser(updateUserInput: UpdateUserInput!): Boolean!
   createOrder(createOrderInput: CreateOrderInput!): Order!
 }

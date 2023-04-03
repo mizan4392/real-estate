@@ -1,8 +1,23 @@
-import { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { LOGIN_USER_MUTATION } from "../graphql/mutation/auth";
+import Button from "../components/Button.component";
 
 export const Login = () => {
   const [loginData, setLoginData] = useState<any>({});
+  const [login, { loading, data }] = useMutation(LOGIN_USER_MUTATION);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (data) {
+      if (data?.login?.jwt) {
+        localStorage.setItem("access_token", data?.login?.jwt);
+        toast.success("Login Success.Enjoy!");
+        navigate("/");
+      }
+    }
+  }, [data]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginData({
@@ -13,7 +28,7 @@ export const Login = () => {
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    console.log("loginData", loginData);
+
     if (!loginData?.email?.length) {
       toast.error("email is required!");
       return;
@@ -27,6 +42,9 @@ export const Login = () => {
       toast.error("Password must be more then or equal 8 character!");
       return;
     }
+    login({
+      variables: loginData,
+    });
   };
   return (
     <div className="h-100vh mb-[50px]">
@@ -44,7 +62,7 @@ export const Login = () => {
           </div>
           <div className="px-4 mb-4">
             <input
-              type="text"
+              type="password"
               placeholder="Password"
               name="password"
               className="border border-gray rounded w-full p-3"
@@ -72,18 +90,18 @@ export const Login = () => {
             </div>
           </div>
           <div className="px-4 mb-6">
-            <button
-              onClick={handleClick}
-              className="border border-blue-500 bg-violet-800 rounded w-full px-4 py-3 text-white font-semibold"
-            >
-              Sign in
-            </button>
+            <Button onClick={handleClick} loading={loading}>
+              Log In
+            </Button>
           </div>
           <div className="bg-gray-100 text-center text-gray-700 py-5">
             Don't have a account?
-            <a href="#" className="font-semibold no-underline  text-violet-800">
+            <Link
+              to={"/signup"}
+              className="font-semibold no-underline  text-violet-800"
+            >
               Signup
-            </a>
+            </Link>
           </div>
         </div>
       </div>

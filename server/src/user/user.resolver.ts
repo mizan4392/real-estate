@@ -14,7 +14,6 @@ export class UserResolver {
 
   @Query(() => User!, { name: 'getUserDetails' })
   @UseGuards(AuthGuard)
-  @UseInterceptors(new SanitizeMongooseModelInterceptor())
   getUserDetails(@AuthUser() user) {
     return this.userService.findUserById(user?.id);
   }

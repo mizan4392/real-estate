@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
     graphQLErrors?.map(({ message, locations, path }) => {
-      toast.error(message);
+      // toast.error(message);
     });
   }
 });

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 // import context
 import { HouseContext } from "./HouseContext.component";
@@ -9,9 +9,18 @@ import { Link } from "react-router-dom";
 // import icons
 import { ImSpinner2 } from "react-icons/im";
 import House from "./House.component";
+import { useQuery } from "@apollo/client";
+import { GET_APARTMENTS_QUERY } from "../graphql/query/apartment";
 
 const HouseList = () => {
-  const { houses, loading }: any = useContext(HouseContext);
+  const { data, loading } = useQuery(GET_APARTMENTS_QUERY, {
+    variables: {
+      pagination: {
+        page: 1,
+        limit: 10,
+      },
+    },
+  });
 
   if (loading) {
     return (
@@ -19,19 +28,18 @@ const HouseList = () => {
     );
   }
 
-  if (houses.length < 1) {
+  if (data?.getApartments?.apartments?.length < 1) {
     return (
       <div className="text-center text-3xl text-gray-400 mt-48">
         Sorry, nothing was found.
       </div>
     );
   }
-
   return (
     <section className="mb-20">
       <div className="container mx-auto">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-14">
-          {houses.map((house: any, index: number) => {
+          {data?.getApartments?.apartments?.map((house: any, index: number) => {
             return (
               <Link to={`/property/${house.id}`} key={index}>
                 <House house={house} />

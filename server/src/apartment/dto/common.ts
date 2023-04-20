@@ -14,6 +14,7 @@ export class FindApartmentResponse {
 export enum APARTMENT_TYPE {
   APARTMENT = 'Apartment',
   HOUSE = 'House',
+  ALL = 'all',
 }
 
 export enum ORDER_STATUS {

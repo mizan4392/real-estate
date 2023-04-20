@@ -26,7 +26,7 @@ export class ApartmentService {
     if (queryData?.type) {
       filterData['type'] = queryData?.type;
     }
-
+    console.log('filterData', filterData);
     const [data, total] = await Promise.all([
       this.apartmentRepository.findByPagination(filterData, pagination),
       this.apartmentRepository.count(filterData),

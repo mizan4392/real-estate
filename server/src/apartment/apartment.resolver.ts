@@ -23,7 +23,7 @@ export class ApartmentResolver {
       description: 'country',
       nullable: true,
     })
-    type: APARTMENT_TYPE,
+    type: string,
     @Args('price', {
       type: () => String,
       description: 'price range',
@@ -31,6 +31,10 @@ export class ApartmentResolver {
     })
     price: string,
   ) {
+    if (type) {
+      type = type?.toLocaleLowerCase();
+    }
+
     return this.apartmentService.getApartments(
       {
         country,

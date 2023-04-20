@@ -129,6 +129,7 @@ input Pagination {
 enum APARTMENT_TYPE {
   APARTMENT
   HOUSE
+  ALL
 }
 
 type Mutation {

@@ -10,10 +10,19 @@ import { Link } from "react-router-dom";
 import { ImSpinner2 } from "react-icons/im";
 import House from "./House.component";
 import { useQuery } from "@apollo/client";
-import { GET_APARTMENTS_QUERY } from "../graphql/query/apartment";
+import {
+  APARTMENT_TYPE,
+  GET_APARTMENTS_QUERY,
+} from "../graphql/query/apartment";
+import {
+  AppStorContext,
+  AppStorContextType,
+} from "../context/app-store.context";
+import { SearchPayloadI } from "./Search.component";
 
 const HouseList = () => {
-  const { data, loading } = useQuery(GET_APARTMENTS_QUERY, {
+  const { searchPayload } = useContext(AppStorContext) as AppStorContextType;
+  const { data, loading, refetch }: any = useQuery(GET_APARTMENTS_QUERY, {
     variables: {
       pagination: {
         page: 1,
@@ -21,7 +30,43 @@ const HouseList = () => {
       },
     },
   });
+  const prepareSearchPayload = (payload: SearchPayloadI) => {
+    const searchPayload: any = {};
 
+    if (payload?.country) {
+      if (payload.country !== "Location (any)") {
+        searchPayload.country = payload.country;
+      } else {
+        searchPayload.country = undefined;
+      }
+    }
+    if (payload?.priceRange) {
+      if (payload.priceRange !== "Price range (any)") {
+        searchPayload.price = payload.priceRange;
+      } else {
+        searchPayload.price = undefined;
+      }
+    }
+    if (payload?.property) {
+      if (payload.property !== "Property (any)") {
+        searchPayload.type = payload.property;
+      } else {
+        searchPayload.type = undefined;
+      }
+    }
+    return searchPayload;
+  };
+  useEffect(() => {
+    if (Object?.keys(searchPayload)?.length) {
+      refetch({
+        pagination: {
+          page: 1,
+          limit: 10,
+        },
+        ...prepareSearchPayload(searchPayload),
+      });
+    }
+  }, [searchPayload]);
   if (loading) {
     return (
       <ImSpinner2 className="mx-auto animate-spin text-violet-700 text-4xl mt-[200px]" />
@@ -41,7 +86,7 @@ const HouseList = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-14">
           {data?.getApartments?.apartments?.map((house: any, index: number) => {
             return (
-              <Link to={`/property/${house.id}`} key={index}>
+              <Link to={`/property/${house._id}`} key={index}>
                 <House house={house} />
               </Link>
             );

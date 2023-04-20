@@ -39,34 +39,40 @@ type Apartment {
   _id: String
 
   """houseName"""
-  houseName: String!
+  houseName: String
 
   """address"""
-  address: String!
+  address: String
 
   """country"""
-  country: String!
+  country: String
 
   """city"""
-  city: String!
+  city: String
 
   """bio"""
-  bio: String!
+  bio: String
 
   """totalBed"""
-  bedrooms: String!
+  bedrooms: String
 
   """totalBath"""
-  bathrooms: String!
+  bathrooms: String
 
   """totalBath"""
-  surface: String!
+  surface: String
 
   """totalBath"""
-  price: String!
+  price: String
 
   """totalBath"""
-  type: String!
+  type: String
+
+  """displayUrl"""
+  displayUrl: String
+
+  """images"""
+  images: String
 }
 
 """Find Apartment Response"""
@@ -107,7 +113,7 @@ type Query {
     country: String
 
     """country"""
-    type: APARTMENT_TYPE
+    type: String
 
     """price range"""
     price: String
@@ -123,13 +129,6 @@ type Query {
 input Pagination {
   page: Float!
   limit: Float!
-}
-
-"""The available type of appartment"""
-enum APARTMENT_TYPE {
-  APARTMENT
-  HOUSE
-  ALL
 }
 
 type Mutation {

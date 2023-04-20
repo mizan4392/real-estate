@@ -12,8 +12,15 @@ import { Menu } from "@headlessui/react";
 // import context
 import { HouseContext } from "./HouseContext.component";
 
-const PriceRangeDropdown = () => {
-  const { price, setPrice }: any = useContext(HouseContext);
+interface PriceRangeDropdownI {
+  setPrice: (price: string) => void;
+  selected?: string;
+}
+
+const PriceRangeDropdown = ({
+  setPrice,
+  selected = "Price range (any)",
+}: PriceRangeDropdownI) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const prices = [
@@ -48,7 +55,9 @@ const PriceRangeDropdown = () => {
       >
         <RiWallet3Line className="dropdown-icon-primary" />
         <div>
-          <div className="text-[15px] font-medium leading-tight">{price}</div>
+          <div className="text-[15px] font-medium leading-tight">
+            {selected}
+          </div>
           <div className="text-[13px]">Choose price range</div>
         </div>
         {isOpen ? (

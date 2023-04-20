@@ -16,8 +16,8 @@ export class ApartmentService {
 
     if (queryData?.price) {
       filterData.price = {
-        $gte: queryData.price.split('-')[0],
-        $lte: queryData.price.split('-')[1],
+        $gte: queryData.price.split('-')[0].trim(),
+        $lte: queryData.price.split('-')[1].trim(),
       };
     }
     if (queryData?.country) {
@@ -26,7 +26,7 @@ export class ApartmentService {
     if (queryData?.type) {
       filterData['type'] = queryData?.type;
     }
-    console.log('filterData', filterData);
+
     const [data, total] = await Promise.all([
       this.apartmentRepository.findByPagination(filterData, pagination),
       this.apartmentRepository.count(filterData),

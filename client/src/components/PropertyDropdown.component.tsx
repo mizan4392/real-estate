@@ -6,9 +6,22 @@ import { Menu } from "@headlessui/react";
 
 // import context
 import { HouseContext } from "./HouseContext.component";
+import { APARTMENT_TYPE } from "../graphql/query/apartment";
 
-const PropertyDropdown = () => {
-  const { property, setProperty, properties }: any = useContext(HouseContext);
+interface PropertyDropdownI {
+  setProperty: (property: string) => void;
+  selected?: string;
+}
+
+const PropertyDropdown = ({
+  setProperty,
+  selected = "Property (any)",
+}: PropertyDropdownI) => {
+  const [properties, setAllProperties] = useState<Array<string>>([
+    "Property (any)",
+    "Apartment",
+    "HOUSE",
+  ]);
   const [isOpen, setIsOpen] = useState(false);
   return (
     <Menu as="div" className="dropdown relative">
@@ -19,7 +32,7 @@ const PropertyDropdown = () => {
         <RiHome5Line className="dropdown-icon-primary" />
         <div>
           <div className="text-[15px] font-medium leading-tight">
-            {property}
+            {selected}
           </div>
           <div className="text-[13px]">Choose property type</div>
         </div>

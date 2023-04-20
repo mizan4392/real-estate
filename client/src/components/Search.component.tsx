@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 // import components
 import CountryDropdown from "./CountryDropdown.component";
@@ -9,14 +9,53 @@ import PriceRangeDropdown from "./PriceRangeDropdown.component";
 import { HouseContext } from "./HouseContext.component";
 // import icon
 import { RiSearch2Line } from "react-icons/ri";
-
+import {
+  AppStorContext,
+  AppStorContextType,
+} from "../context/app-store.context";
+export interface SearchPayloadI {
+  country?: string;
+  property?: string;
+  priceRange?: string;
+}
 const Search = () => {
-  const { handleClick }: any = useContext(HouseContext);
+  const { saveSearchPayload } = useContext(
+    AppStorContext
+  ) as AppStorContextType;
+  const [searchPayload, setSearchPayload] = useState<SearchPayloadI>({});
+
+  const handleClick = () => {
+    saveSearchPayload(searchPayload);
+  };
   return (
     <div className="px-[30px] py-6 max-w-[1170px] mx-auto flex flex-col lg:flex-row justify-between gap-4 lg:gap-x-3 relative lg:-top-4 lg:shadow-1 bg-white lg:bg-transparent lg:backdrop-blur rounded-lg">
-      <CountryDropdown />
-      <PropertyDropdown />
-      <PriceRangeDropdown />
+      <CountryDropdown
+        setCountry={(country) => {
+          setSearchPayload({
+            ...searchPayload,
+            country: country,
+          });
+        }}
+        selected={searchPayload.country}
+      />
+      <PropertyDropdown
+        selected={searchPayload?.property}
+        setProperty={(property) => {
+          setSearchPayload({
+            ...searchPayload,
+            property: property,
+          });
+        }}
+      />
+      <PriceRangeDropdown
+        selected={searchPayload?.priceRange}
+        setPrice={(priceRange) => {
+          setSearchPayload({
+            ...searchPayload,
+            priceRange: priceRange,
+          });
+        }}
+      />
       <button
         onClick={() => {
           handleClick();

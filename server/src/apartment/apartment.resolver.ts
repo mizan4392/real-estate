@@ -19,7 +19,7 @@ export class ApartmentResolver {
     })
     country: string,
     @Args('type', {
-      type: () => APARTMENT_TYPE,
+      type: () => String,
       description: 'country',
       nullable: true,
     })

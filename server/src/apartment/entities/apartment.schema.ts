@@ -12,45 +12,53 @@ export class Apartment {
   @Field(() => String, { description: 'id', nullable: true })
   _id: string;
 
-  @Field(() => String, { description: 'houseName' })
+  @Field(() => String, { description: 'houseName', nullable: true })
   @Prop({ type: mongoose.Schema.Types.String, required: false })
   houseName: string;
 
-  @Field(() => String, { description: 'address' })
+  @Field(() => String, { description: 'address', nullable: true })
   @Prop({ type: mongoose.Schema.Types.String, required: false })
   address: string;
 
-  @Field(() => String, { description: 'country' })
+  @Field(() => String, { description: 'country', nullable: true })
   @Prop({ type: mongoose.Schema.Types.String, required: false })
   country: string;
 
-  @Field(() => String, { description: 'city' })
+  @Field(() => String, { description: 'city', nullable: true })
   @Prop({ type: mongoose.Schema.Types.String, required: false })
   city: string;
 
-  @Field(() => String, { description: 'bio' })
+  @Field(() => String, { description: 'bio', nullable: true })
   @Prop({ type: mongoose.Schema.Types.String, required: false })
   bio: string;
 
-  @Field(() => String, { description: 'totalBed' })
+  @Field(() => String, { description: 'totalBed', nullable: true })
   @Prop({ type: mongoose.Schema.Types.Number, required: false })
   bedrooms: number;
 
-  @Field(() => String, { description: 'totalBath' })
+  @Field(() => String, { description: 'totalBath', nullable: true })
   @Prop({ type: mongoose.Schema.Types.Number, required: false })
   bathrooms: number;
 
-  @Field(() => String, { description: 'totalBath' })
+  @Field(() => String, { description: 'totalBath', nullable: true })
   @Prop({ type: mongoose.Schema.Types.Number, required: false })
   surface: number;
 
-  @Field(() => String, { description: 'totalBath' })
+  @Field(() => String, { description: 'totalBath', nullable: true })
   @Prop({ type: mongoose.Schema.Types.Number, required: false })
   price: number;
 
-  @Field(() => String, { description: 'totalBath' })
+  @Field(() => String, { description: 'totalBath', nullable: true })
   @Prop({ type: mongoose.Schema.Types.String, required: false })
   type: string;
+
+  @Field(() => String, { description: 'displayUrl', nullable: true })
+  @Prop({ type: mongoose.Schema.Types.String, required: false })
+  displayUrl: string;
+
+  @Field(() => String, { description: 'images', nullable: true })
+  @Prop({ type: mongoose.Schema.Types.String, required: false })
+  images: string[];
 }
 
 export const ApartmentSchema = SchemaFactory.createForClass(Apartment);
